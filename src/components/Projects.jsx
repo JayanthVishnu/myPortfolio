@@ -1,5 +1,4 @@
-import { motion, useInView } from 'framer-motion';
-import { useRef } from 'react';
+import { motion } from 'framer-motion';
 
 // Import project images
 import weatherReactImg from '../assets/projects/weather-react.png';
@@ -10,46 +9,52 @@ import weatherAndroidImg from '../assets/projects/weather-android.png';
 import hospitalMgmtImg from '../assets/projects/hospital-mgmt.png';
 
 const projects = [
-
     {
-        title: "Weather App (React)",
-        description: "A responsive weather forecasting application developed using React.js and Material UI. Integrated the OpenWeatherAPI to fetch and display real-time weather data, providing users with accurate current conditions and forecasts.",
-        tags: ["React", "Material UI", "OpenWeatherAPI", "REST API"],
-        image: weatherReactImg,
-        demoLink: "https://jayanthvishnu.github.io/weather-app/"
-    },
-    {
-        title: "Multi-PDF Reader AI",
-        description: "An intelligent document processing system that converts multiple PDFs into text chunks and stores them in a vector database. Utilizes LLMs (OpenAI/HuggingFace) via Streamlit to provide accurate, context-aware answers to user queries based on the document content.",
-        tags: ["Python", "LangChain", "OpenAI", "Streamlit", "Vector DB"],
+        title: "AI PDF Reader",
+        status: "ACTIVE_PROD",
+        description: "Built an intelligent document Q&A system converting PDFs to text chunks stored in a vector database, using LLMs (OpenAI/HuggingFace) via Streamlit for context-aware query answering.",
+        tags: ["Python", "OpenAI", "HuggingFace", "VectorDB", "Streamlit"],
         image: pdfAiImg,
         demoLink: "https://github.com/JayanthVishnu/muti_pdf_reader_using_AI",
-        linkText: "View Code"
+        linkText: "Launch Source"
     },
     {
-        title: "Hospital Management System",
-        description: "A full-stack hospital management system streamlining operations from patient records to billing. Built with Spring Boot REST APIs and a React frontend, featuring doctor management, appointment scheduling, and efficient MySQL data handling for comprehensive medical workflows.",
-        tags: ["Spring Boot", "React", "MySQL", "REST API", "Healthcare"],
+        title: "Hospital Management",
+        status: "STABLE",
+        description: "Built full-stack hospital platform covering doctor management, patient records, appointment scheduling, billing, and medical reports using Spring Boot REST APIs and React frontend with MySQL relational data models.",
+        tags: ["Spring Boot", "React", "MySQL", "REST APIs"],
         image: hospitalMgmtImg,
-        demoLink: "",
-        linkText: "View Code"
+        demoLink: "https://github.com/JayanthVishnu/Hospital-Management-System", // Added fallback repository
+        linkText: "Launch Source"
     },
     {
-        title: "Land Registration System",
+        title: "Weather App",
+        status: "ACTIVE_WEB",
+        description: "Created a responsive weather forecasting app integrated with OpenWeatherAPI for real-time conditions and forecasts.",
+        tags: ["React", "Material UI", "OpenWeatherAPI", "REST APIs"],
+        image: weatherReactImg,
+        demoLink: "https://jayanthvishnu.github.io/weather-app/",
+        linkText: "Launch App"
+    },
+    {
+        title: "Land Registry Ledger",
+        status: "STANDBY",
         description: "A decentralized land registry system built on the Ethereum blockchain. Implemented smart contracts with Solidity to ensure immutable storage of land ownership data, eliminating fraud and manipulation. Utilized Ganache and Remix IDE for testing.",
         tags: ["Solidity", "Ethereum", "Ganache", "Blockchain"],
         image: landRegistryImg
     },
     {
-        title: "COVID-19 Bed Booking",
+        title: "COVID-19 Beds Booking",
+        status: "STANDBY",
         description: "A web application designed to help patients find and reserve hospital beds during the pandemic. Built with a robust SQL database to manage real-time bed availability and streamline the allocation process for critical patients.",
         tags: ["SQL", "Database", "Web Development", "Healthcare"],
         image: covidBedsImg,
         demoLink: "https://github.com/JayanthVishnu/Covid-19-DBMS-BED-SLOT-BOOKING",
-        linkText: "View Code"
+        linkText: "Launch Source"
     },
     {
-        title: "Android Weather App",
+        title: "Android Weather Client",
+        status: "STANDBY",
         description: "A native Android application that delivers real-time weather updates. Leveraged third-party APIs to retrieve accurate weather data and implemented a user-friendly interface for seamless navigation and information display.",
         tags: ["Android", "Java", "APIs", "Mobile Dev"],
         image: weatherAndroidImg
@@ -57,12 +62,18 @@ const projects = [
 ];
 
 const Projects = () => {
-    const ref = useRef(null);
-    const isInView = useInView(ref, { once: true, margin: "-100px" });
+    const handleMouseMove = (e) => {
+        const card = e.currentTarget;
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        card.style.setProperty('--mouse-x', `${x}px`);
+        card.style.setProperty('--mouse-y', `${y}px`);
+    };
 
     return (
         <section id="projects" className="py-32 px-6 bg-transparent">
-            <div className="max-w-7xl mx-auto">
+            <div className="max-w-6xl mx-auto">
                 <motion.div
                     initial={{ opacity: 0, y: 40 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -70,11 +81,12 @@ const Projects = () => {
                     transition={{ duration: 0.6 }}
                     className="text-center mb-16"
                 >
-                    <h2 className="text-4xl md:text-5xl font-bold mb-4 text-white font-serif">
-                        Featured <span className="gradient-text">Projects</span>
+                    <h2 className="text-3xl md:text-5xl font-black text-white uppercase font-serif tracking-wide mb-4">
+                        [featured<span className="text-cyan-400">_modules</span>]
                     </h2>
-                    <p className="text-xl text-gray-400 font-light">
-                        Showcasing my technical capabilities
+                    <div className="h-1 w-20 bg-cyan-400/50 mx-auto shadow-[0_0_10px_rgba(0,229,255,0.5)] mb-4" />
+                    <p className="text-lg text-gray-400 max-w-xl mx-auto font-light font-mono">
+                        // Personal registry modules. Active applications launched directly from terminal channels.
                     </p>
                 </motion.div>
 
@@ -86,50 +98,63 @@ const Projects = () => {
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true, margin: "-50px" }}
                             transition={{ duration: 0.5, delay: index * 0.1 }}
-                            className="glass-dark rounded-2xl overflow-hidden group hover:shadow-[0_0_30px_rgba(59,130,246,0.2)] transition-all duration-500 flex flex-col"
+                            onMouseMove={handleMouseMove}
+                            className="cyber-card rounded-2xl overflow-hidden flex flex-col justify-between group cursor-default border border-cyan-500/15"
                         >
-                            {/* Project Image */}
-                            <div className="h-48 overflow-hidden relative">
-                                <img
-                                    src={project.image}
-                                    alt={project.title}
-                                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                                />
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-60" />
-                            </div>
-
-                            <div className="p-8 flex flex-col flex-grow">
-                                <div className="flex justify-between items-start mb-4">
-                                    <h3 className="text-2xl font-bold text-white font-serif group-hover:text-blue-400 transition-colors">
-                                        {project.title}
-                                    </h3>
+                            <div>
+                                {/* Project Image with scanning mask */}
+                                <div className="h-44 overflow-hidden relative border-b border-cyan-500/10">
+                                    <img
+                                        src={project.image}
+                                        alt={project.title}
+                                        className="w-full h-full object-cover transition-transform duration-750 group-hover:scale-105"
+                                    />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-[#040408]/90 via-[#040408]/40 to-transparent opacity-80" />
+                                    
+                                    {/* Scan bar inside image */}
+                                    <div className="absolute inset-x-0 h-[2px] bg-cyan-400/30 blur-[1px] animate-scan" />
+                                    
+                                    {/* Status Indicator */}
+                                    <div className="absolute top-4 right-4 font-mono text-[9px] px-2 py-0.5 rounded bg-[#040408]/90 border border-cyan-400/30 text-cyan-300 font-bold uppercase tracking-wider">
+                                        {project.status}
+                                    </div>
                                 </div>
 
-                                <p className="text-gray-400 mb-6 flex-grow font-light leading-relaxed text-sm">
-                                    {project.description}
-                                </p>
+                                <div className="p-6 space-y-4">
+                                    <h3 className="text-xl font-bold text-white font-mono tracking-wide group-hover:text-cyan-300 transition-colors">
+                                        {project.title}
+                                    </h3>
 
-                                <div className="flex flex-wrap gap-2 mb-4">
+                                    <p className="text-gray-400 font-light leading-relaxed text-xs h-20 overflow-y-auto">
+                                        {project.description}
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div className="p-6 pt-0 space-y-4">
+                                {/* Tech Tags */}
+                                <div className="flex flex-wrap gap-1.5 pt-2 border-t border-cyan-500/5">
                                     {project.tags.map((tag, tagIndex) => (
                                         <span
                                             key={tagIndex}
-                                            className="px-3 py-1 text-xs font-medium bg-gray-800/50 text-gray-300 rounded-full border border-gray-700/50"
+                                            className="px-2 py-0.5 text-[9px] font-mono bg-cyan-500/5 text-gray-300 rounded border border-cyan-500/10"
                                         >
                                             {tag}
                                         </span>
                                     ))}
                                 </div>
 
+                                {/* Link action */}
                                 {project.demoLink && (
                                     <a
                                         href={project.demoLink}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="mt-auto inline-flex items-center justify-center gap-2 px-4 py-2 bg-blue-600/20 hover:bg-blue-600/30 text-blue-400 rounded-lg border border-blue-500/30 hover:border-blue-500/50 transition-all duration-300 group/btn"
+                                        className="inline-flex items-center justify-center gap-2 w-full px-4 py-2 bg-cyan-500/10 hover:bg-cyan-500/20 text-cyan-400 rounded-lg border border-cyan-500/25 hover:border-cyan-400 transition-all duration-300 group/btn font-mono text-xs font-bold tracking-wider"
                                     >
-                                        <span className="text-sm font-medium">{project.linkText || "View Demo"}</span>
+                                        <span>{project.linkText || "LAUNCH_MODULE"}</span>
                                         <svg
-                                            className="w-4 h-4 transition-transform group-hover/btn:translate-x-1"
+                                            className="w-3.5 h-3.5 transition-transform group-hover/btn:translate-x-1"
                                             fill="none"
                                             stroke="currentColor"
                                             viewBox="0 0 24 24"

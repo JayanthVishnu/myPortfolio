@@ -5,6 +5,7 @@ const Navbar = () => {
     const [isScrolled, setIsScrolled] = useState(false);
     const [activeSection, setActiveSection] = useState('hero');
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const [time, setTime] = useState("");
 
     const { scrollYProgress } = useScroll();
     const scaleX = useSpring(scrollYProgress, {
@@ -14,6 +15,14 @@ const Navbar = () => {
     });
 
     useEffect(() => {
+        // Clock tick
+        const updateClock = () => {
+            const date = new Date();
+            setTime(date.toLocaleTimeString());
+        };
+        updateClock();
+        const timer = setInterval(updateClock, 1000);
+
         const handleScroll = () => {
             setIsScrolled(window.scrollY > 50);
 
@@ -32,16 +41,19 @@ const Navbar = () => {
         };
 
         window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+            clearInterval(timer);
+        };
     }, []);
 
     const navLinks = [
-        { name: 'Home', href: '#hero' },
-        { name: 'About', href: '#about' },
-        { name: 'Skills', href: '#skills' },
-        { name: 'Experience', href: '#experience' },
-        { name: 'Projects', href: '#projects' },
-        { name: 'Contact', href: '#contact' },
+        { name: 'HOME', href: '#hero' },
+        { name: 'ABOUT', href: '#about' },
+        { name: 'SKILLS', href: '#skills' },
+        { name: 'EXPERIENCE', href: '#experience' },
+        { name: 'PROJECTS', href: '#projects' },
+        { name: 'CONTACT', href: '#contact' },
     ];
 
     const handleNavClick = (e, href) => {
@@ -60,41 +72,58 @@ const Navbar = () => {
     return (
         <>
             <nav
-                className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'py-4 bg-black/50 backdrop-blur-md border-b border-white/10' : 'py-6 bg-transparent'
-                    }`}
+                className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+                    isScrolled 
+                    ? 'py-3 bg-[#040408]/90 backdrop-blur-md border-b border-cyan-500/10' 
+                    : 'py-5 bg-transparent'
+                }`}
             >
                 <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
-                    <a
-                        href="#hero"
-                        onClick={(e) => handleNavClick(e, '#hero')}
-                        className="text-2xl font-bold text-white font-serif tracking-tight cursor-pointer"
-                    >
-                        JSV<span className="text-blue-500">.</span>
-                    </a>
+                    <div className="flex items-center gap-6">
+                        <a
+                            href="#hero"
+                            onClick={(e) => handleNavClick(e, '#hero')}
+                            className="text-xl font-black font-serif text-white tracking-widest cursor-pointer font-mono"
+                        >
+                            JSV<span className="text-cyan-400 animate-pulse">_UPLINK</span>
+                        </a>
+
+                        {/* Live diagnostic metrics on header */}
+                        <div className="hidden lg:flex items-center gap-3 border-l border-gray-800 pl-6 text-xs font-mono text-gray-500">
+                            <div className="flex items-center gap-2">
+                                <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping" />
+                                <span className="text-emerald-400 font-bold uppercase tracking-widest">SYS: ONLINE</span>
+                            </div>
+                            <span className="text-gray-700">|</span>
+                            <span className="text-cyan-400/70">{time}</span>
+                        </div>
+                    </div>
 
                     {/* Desktop Menu */}
-                    <div className="hidden md:flex items-center gap-8">
+                    <div className="hidden md:flex items-center gap-8 font-mono">
                         {navLinks.map((link) => (
                             <a
                                 key={link.name}
                                 href={link.href}
                                 onClick={(e) => handleNavClick(e, link.href)}
-                                className={`text-sm font-medium transition-all duration-300 hover:text-blue-400 relative group ${activeSection === link.href.substring(1) ? 'text-blue-400' : 'text-gray-300'
-                                    }`}
+                                className={`text-xs font-semibold tracking-wider transition-all duration-300 hover:text-cyan-400 relative py-1 group ${
+                                    activeSection === link.href.substring(1) ? 'text-cyan-400' : 'text-gray-400'
+                                }`}
                             >
                                 {link.name}
-                                <span className={`absolute -bottom-1 left-0 w-0 h-0.5 bg-blue-500 transition-all duration-300 group-hover:w-full ${activeSection === link.href.substring(1) ? 'w-full' : ''
-                                    }`} />
+                                <span className={`absolute -bottom-1 left-0 w-0 h-[2px] bg-cyan-400 transition-all duration-300 group-hover:w-full ${
+                                    activeSection === link.href.substring(1) ? 'w-full shadow-[0_0_8px_rgba(0,229,255,0.8)]' : ''
+                                }`} />
                             </a>
                         ))}
                     </div>
 
                     {/* Mobile Menu Button */}
                     <button
-                        className="md:hidden text-white p-2"
+                        className="md:hidden text-cyan-400 p-2 border border-cyan-500/20 rounded bg-cyan-500/5 hover:bg-cyan-500/10 transition-colors"
                         onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                     >
-                        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             {isMobileMenuOpen ? (
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                             ) : (
@@ -111,16 +140,17 @@ const Navbar = () => {
                             initial={{ opacity: 0, height: 0 }}
                             animate={{ opacity: 1, height: 'auto' }}
                             exit={{ opacity: 0, height: 0 }}
-                            className="md:hidden bg-black/90 backdrop-blur-xl border-b border-white/10 overflow-hidden"
+                            className="md:hidden bg-[#040408]/95 backdrop-blur-xl border-b border-cyan-500/15 overflow-hidden"
                         >
-                            <div className="flex flex-col p-6 gap-4">
+                            <div className="flex flex-col p-6 gap-4 font-mono">
                                 {navLinks.map((link) => (
                                     <a
                                         key={link.name}
                                         href={link.href}
                                         onClick={(e) => handleNavClick(e, link.href)}
-                                        className={`text-lg font-medium ${activeSection === link.href.substring(1) ? 'text-blue-400' : 'text-gray-300'
-                                            }`}
+                                        className={`text-sm font-semibold tracking-wider ${
+                                            activeSection === link.href.substring(1) ? 'text-cyan-400' : 'text-gray-400'
+                                        }`}
                                     >
                                         {link.name}
                                     </a>
@@ -131,9 +161,9 @@ const Navbar = () => {
                 </AnimatePresence>
             </nav>
 
-            {/* Scroll Progress Bar */}
+            {/* Glowing Scroll Progress Bar */}
             <motion.div
-                className="fixed top-0 left-0 right-0 h-1 bg-blue-500 origin-left z-[60]"
+                className="fixed top-0 left-0 right-0 h-[3px] bg-cyan-400 origin-left z-[60] shadow-[0_0_10px_rgba(0,229,255,0.7)]"
                 style={{ scaleX }}
             />
         </>

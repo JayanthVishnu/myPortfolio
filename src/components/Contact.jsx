@@ -1,14 +1,18 @@
-import { motion, useInView } from 'framer-motion';
-import { useRef } from 'react';
+import { motion } from 'framer-motion';
 
 const Contact = () => {
-    const ref = useRef(null);
-    const isInView = useInView(ref, { once: true, margin: "-100px" });
-
+    const handleMouseMove = (e) => {
+        const card = e.currentTarget;
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        card.style.setProperty('--mouse-x', `${x}px`);
+        card.style.setProperty('--mouse-y', `${y}px`);
+    };
 
     return (
         <section id="contact" className="py-32 px-6 bg-transparent">
-            <div className="max-w-4xl mx-auto">
+            <div className="max-w-6xl mx-auto">
                 <motion.div
                     initial={{ opacity: 0, y: 40 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -16,74 +20,86 @@ const Contact = () => {
                     transition={{ duration: 0.6 }}
                     className="text-center mb-16"
                 >
-                    <h2 className="text-4xl md:text-5xl font-bold mb-4 text-white font-serif">
-                        Get in <span className="gradient-text">Touch</span>
+                    <h2 className="text-3xl md:text-5xl font-black text-white uppercase font-serif tracking-wide mb-4">
+                        [comms<span className="text-cyan-400">_uplink</span>]
                     </h2>
-                    <p className="text-xl text-gray-400 font-light">
-                        Let's discuss your next project
+                    <div className="h-1 w-20 bg-cyan-400/50 mx-auto shadow-[0_0_10px_rgba(0,229,255,0.5)] mb-4" />
+                    <p className="text-lg text-gray-400 max-w-xl mx-auto font-light font-mono">
+                        // Secure transmission portal. Establish direct telemetry channel with SDE-1 node.
                     </p>
                 </motion.div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-                    {/* Contact Info */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch font-mono">
+                    {/* Left: Contact Info (Uplink Details) */}
                     <motion.div
                         initial={{ opacity: 0, x: -30 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.6 }}
-                        className="space-y-8"
+                        onMouseMove={handleMouseMove}
+                        className="cyber-card p-8 md:p-10 rounded-2xl border border-cyan-500/15 flex flex-col justify-between cyber-corners"
                     >
-                        <h3 className="text-2xl font-bold text-white font-serif mb-6">
-                            Contact Information
-                        </h3>
-
-                        <div className="space-y-6">
-                            <div className="flex items-start gap-4">
-                                <div className="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-400 border border-blue-500/20">
-                                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                                    </svg>
-                                </div>
-                                <div>
-                                    <p className="text-sm text-gray-500 mb-1">Email</p>
-                                    <a href="mailto:jayanthvishnu56@gmail.com" className="text-lg text-white hover:text-blue-400 transition-colors">
-                                        jayanthvishnu56@gmail.com
-                                    </a>
-                                </div>
+                        <div className="space-y-8">
+                            <div className="flex items-center justify-between border-b border-cyan-500/10 pb-4">
+                                <span className="text-xs text-gray-500">[TRANSMISSION_NODES]</span>
+                                <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
                             </div>
 
-                            <div className="flex items-start gap-4">
-                                <div className="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-400 border border-blue-500/20">
-                                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                                    </svg>
+                            <div className="space-y-6">
+                                {/* Email */}
+                                <div className="flex items-start gap-4 group">
+                                    <div className="w-12 h-12 rounded-xl bg-cyan-500/5 flex items-center justify-center text-cyan-400 border border-cyan-500/15 group-hover:border-cyan-400 group-hover:shadow-[0_0_10px_rgba(0,229,255,0.2)] transition-all">
+                                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <p className="text-[10px] text-gray-500 uppercase tracking-widest">TRANSMIT_TO</p>
+                                        <a href="mailto:jayanthvishnu56@gmail.com" className="text-sm md:text-base text-gray-200 hover:text-cyan-300 transition-colors">
+                                            jayanthvishnu56@gmail.com
+                                        </a>
+                                    </div>
                                 </div>
-                                <div>
-                                    <p className="text-sm text-gray-500 mb-1">Phone</p>
-                                    <a href="tel:+918618343931" className="text-lg text-white hover:text-blue-400 transition-colors">
-                                        +91 8618343931
-                                    </a>
-                                </div>
-                            </div>
 
-                            <div className="flex items-start gap-4">
-                                <div className="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-400 border border-blue-500/20">
-                                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                                    </svg>
+                                {/* Phone */}
+                                <div className="flex items-start gap-4 group">
+                                    <div className="w-12 h-12 rounded-xl bg-cyan-500/5 flex items-center justify-center text-cyan-400 border border-cyan-500/15 group-hover:border-cyan-400 group-hover:shadow-[0_0_10px_rgba(0,229,255,0.2)] transition-all">
+                                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <p className="text-[10px] text-gray-500 uppercase tracking-widest">DIAL_NODE</p>
+                                        <a href="tel:+918618343931" className="text-sm md:text-base text-gray-200 hover:text-cyan-300 transition-colors">
+                                            +91 8618343931
+                                        </a>
+                                    </div>
                                 </div>
-                                <div>
-                                    <p className="text-sm text-gray-500 mb-1">Location</p>
-                                    <p className="text-lg text-white">
-                                        Bengaluru, Karnataka, India
-                                    </p>
+
+                                {/* Location */}
+                                <div className="flex items-start gap-4 group">
+                                    <div className="w-12 h-12 rounded-xl bg-cyan-500/5 flex items-center justify-center text-cyan-400 border border-cyan-500/15 group-hover:border-cyan-400 group-hover:shadow-[0_0_10px_rgba(0,229,255,0.2)] transition-all">
+                                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                                        </svg>
+                                    </div>
+                                    <div>
+                                        <p className="text-[10px] text-gray-500 uppercase tracking-widest">LOCATION_GPS</p>
+                                        <p className="text-sm md:text-base text-gray-200">
+                                            Bengaluru, Karnataka, India
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+
+                        <div className="mt-8 p-3 bg-cyan-500/5 border border-cyan-500/10 rounded-lg text-[10px] text-gray-500">
+                            * Telemetry routing encrypted. Active connection paths calibrated under TLS standards.
+                        </div>
                     </motion.div>
 
-                    {/* Contact Form */}
+                    {/* Right: Contact Form */}
                     <motion.form
                         action="https://formspree.io/f/mbjnnywv"
                         method="POST"
@@ -91,46 +107,57 @@ const Contact = () => {
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.6, delay: 0.2 }}
-                        className="glass-dark p-8 rounded-2xl space-y-6"
+                        onMouseMove={handleMouseMove}
+                        className="cyber-card p-8 md:p-10 rounded-2xl border border-cyan-500/15 flex flex-col justify-between"
                     >
-                        <div>
-                            <label htmlFor="name" className="block text-sm font-medium text-gray-400 mb-2">Name</label>
-                            <input
-                                type="text"
-                                id="name"
-                                name="name"
-                                required
-                                className="w-full bg-black/50 border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all"
-                                placeholder="Your name"
-                            />
+                        <div className="space-y-6 w-full">
+                            <div className="flex items-center justify-between border-b border-cyan-500/10 pb-4">
+                                <span className="text-xs text-gray-500">[UPLINK_TRANSMITTER]</span>
+                                <span className="text-cyan-400 font-bold animate-pulse text-[10px]">READY_TO_TRANSMIT</span>
+                            </div>
+
+                            <div className="space-y-4 text-xs">
+                                <div>
+                                    <label htmlFor="name" className="block text-gray-500 mb-1.5 uppercase font-bold tracking-wider">NAME</label>
+                                    <input
+                                        type="text"
+                                        id="name"
+                                        name="name"
+                                        required
+                                        className="w-full bg-black/50 border border-cyan-500/15 rounded-lg px-4 py-3 text-gray-200 focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 focus:shadow-[0_0_10px_rgba(0,229,255,0.1)] transition-all font-mono"
+                                        placeholder="INPUT_SENDER_NAME"
+                                    />
+                                </div>
+                                <div>
+                                    <label htmlFor="email" className="block text-gray-500 mb-1.5 uppercase font-bold tracking-wider">EMAIL</label>
+                                    <input
+                                        type="email"
+                                        id="email"
+                                        name="email"
+                                        required
+                                        className="w-full bg-black/50 border border-cyan-500/15 rounded-lg px-4 py-3 text-gray-200 focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 focus:shadow-[0_0_10px_rgba(0,229,255,0.1)] transition-all font-mono"
+                                        placeholder="SENDER_MAIL_ADDRESS"
+                                    />
+                                </div>
+                                <div>
+                                    <label htmlFor="message" className="block text-gray-500 mb-1.5 uppercase font-bold tracking-wider">MESSAGE_DATA</label>
+                                    <textarea
+                                        id="message"
+                                        name="message"
+                                        required
+                                        rows="4"
+                                        className="w-full bg-black/50 border border-cyan-500/15 rounded-lg px-4 py-3 text-gray-200 focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 focus:shadow-[0_0_10px_rgba(0,229,255,0.1)] transition-all resize-none font-mono"
+                                        placeholder="COMPILE_MESSAGE_PAYLOAD_HERE..."
+                                    ></textarea>
+                                </div>
+                            </div>
                         </div>
-                        <div>
-                            <label htmlFor="email" className="block text-sm font-medium text-gray-400 mb-2">Email</label>
-                            <input
-                                type="email"
-                                id="email"
-                                name="email"
-                                required
-                                className="w-full bg-black/50 border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all"
-                                placeholder="your@email.com"
-                            />
-                        </div>
-                        <div>
-                            <label htmlFor="message" className="block text-sm font-medium text-gray-400 mb-2">Message</label>
-                            <textarea
-                                id="message"
-                                name="message"
-                                required
-                                rows="4"
-                                className="w-full bg-black/50 border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all resize-none"
-                                placeholder="Your message..."
-                            ></textarea>
-                        </div>
+
                         <button
                             type="submit"
-                            className="w-full bg-blue-600 text-white font-medium py-3 px-6 rounded-lg transition-all duration-300 hover:bg-blue-500 hover:shadow-[0_0_20px_rgba(37,99,235,0.4)] transform hover:-translate-y-1"
+                            className="mt-6 w-full bg-cyan-500 text-black font-black py-3 px-6 rounded-lg transition-all duration-300 hover:bg-cyan-400 hover:shadow-[0_0_20px_rgba(0,229,255,0.4)] hover:-translate-y-0.5 text-center uppercase tracking-widest text-sm"
                         >
-                            Send Message
+                            EXECUTE_UPLINK
                         </button>
                     </motion.form>
                 </div>
