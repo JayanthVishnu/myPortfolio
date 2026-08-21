@@ -71,9 +71,9 @@ const Terminal = () => {
                 return [
                     { text: "--- DEVELOPER DATA REGISTER ---", type: "header" },
                     { text: "NAME: Jayanth Shree Vishnu", type: "output" },
-                    { text: "ROLE: Software Engineer (SDE-1)", type: "output" },
+                    { text: "ROLE: Software Development Engineer I", type: "output" },
                     { text: "LOC: Bengaluru, Karnataka, India", type: "output" },
-                    { text: "BIO: Software Engineer (SDE-1) with 1+ years of experience designing and delivering distributed, high-performance backend systems, real-time data pipelines, and microservices in production environments. Proficient in Java, Node.js, Rust, and Python.", type: "output" }
+                    { text: "BIO: Backend-focused SDE with 1+ year shipping production systems for manufacturing clients — real-time dashboards, traceability apps, and machine-integration services on actual factory floors. Node.js, Java, Rust, MongoDB. Also built desktop apps with Tauri 2 + Svelte 5.", type: "output" }
                 ];
             case 'skills':
                 return [
@@ -87,20 +87,22 @@ const Terminal = () => {
             case 'experience':
                 return [
                     { text: "--- CYMBELINE INNOVATION PVT LTD (SDE-1) ---", type: "header" },
-                    { text: "• Panasonic Jhajjar Dashboard: Replaced polling with WebSockets + MongoDB Change Streams, reducing dashboard load time by ~90% (3-5s to <500ms) and setting up automated failover (99.2% uptime).", type: "output" },
-                    { text: "• HMSI Traceability System: Built tracking app from scratch, reducing errors by ~75% and audit speed by ~40%. Integrated PocketBase & Supabase auth (90% login issues fixed).", type: "output" },
-                    { text: "• Panasonic IIC (WMS Backend): Optimized REST APIs (40% faster) and integrated MQTT Arbitration Sync (99.5% inter-system sync reliability).", type: "output" },
-                    { text: "• SMT Driver Microservice: Created CSV schema-driven parsing engine & high-throughput async queue service in Rust handling 10+ concurrent streams.", type: "output" },
-                    { text: "• Foxconn API Dev: Delivered robust REST API contracts.", type: "output" }
+                    { text: "• Panasonic Jhajjar: Swapped API polling for WebSockets + MongoDB Change Streams, taking load time from 3-5s to <500ms. Set up MongoDB replica sets with automated failover.", type: "output" },
+                    { text: "• HMSI Traceability: Built tracking app from scratch. Automated metadata capture cut manual data errors. PocketBase & Supabase auth for frictionless onboarding.", type: "output" },
+                    { text: "• Panasonic IIC (WMS): Reworked REST APIs for better load handling. MQTT sync layer for distributed nodes + cron jobs to avoid data drift.", type: "output" },
+                    { text: "• SMT Driver Microservice (Uno Minda, Ikio, Minda Khed): Config-driven CSV parser for LMM/SPI/AOI/FCR machines. Rust service (SMT-FileProcess) handles 10+ concurrent streams.", type: "output" },
+                    { text: "• DENSO: Desktop app (Tauri 2 + Svelte 5) for 6 production stations + consumable tracking + live dashboard. RFID, QR, ETB API. Edge cases: duplicate scans, depleted stock, multi-lot QR. Packaged as Windows installer via NSSM.", type: "output" },
+                    { text: "• Foxconn: TCP listener parses PanaCIM XML into MongoDB defect records. MSSQL watcher for machines that skip TCP — both feed a single query API.", type: "output" }
                 ];
             case 'projects':
                 return [
                     { text: "--- FEATURED APPLICATION MODULES ---", type: "header" },
-                    { text: "1. Hospital Management System: Spring Boot, React, MySQL (Full-stack billing, scheduling, workflows)", type: "output" },
-                    { text: "2. AI PDF Reader: Python, OpenAI, VectorDB, Streamlit (Intelligent chunking & vector search Q&A)", type: "output" },
-                    { text: "3. Weather App: React, REST APIs, Material UI (Real-time forecasting with OpenWeatherAPI)", type: "output" },
-                    { text: "4. Land Registration: Solidity, Ethereum (Smart-contract decentralized ledger)", type: "output" },
-                    { text: "Type 'socials' to get codes/demos repositories.", type: "hint" }
+                    { text: "1. QRLayout: Drag-and-drop QR layout designer for labels/packaging. Open source.", type: "output" },
+                    { text: "2. EnvDrift: CLI that scans a codebase for used env vars and flags missing .env entries. Open source.", type: "output" },
+                    { text: "3. Hospital Management System: Spring Boot, React, MySQL (Full-stack billing, scheduling, workflows)", type: "output" },
+                    { text: "4. AI PDF Reader: Python, OpenAI, VectorDB, Streamlit (RAG-based document Q&A)", type: "output" },
+                    { text: "5. Weather App: React, REST APIs, Material UI (Real-time forecasting with OpenWeatherAPI)", type: "output" },
+                    { text: "Type 'socials' to get repository links.", type: "hint" }
                 ];
             case 'contact':
                 return [

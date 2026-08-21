@@ -1,33 +1,23 @@
 const Footer = () => {
-    const currentYear = new Date().getFullYear();
-
+    const year = new Date().getFullYear();
     return (
-        <footer className="bg-transparent text-white py-12 border-t border-cyan-500/10 font-mono">
-            <div className="max-w-6xl mx-auto px-6">
-                <div className="flex flex-col md:flex-row justify-between items-center gap-6">
-                    <div className="text-center md:text-left space-y-1">
-                        <h3 className="text-lg font-black tracking-widest"><span className="gradient-text">JSV_UPLINK</span></h3>
-                        <p className="text-gray-500 text-xs font-light">
-                            Software Engineer (SDE-1) • Bengaluru, IN
-                        </p>
-                    </div>
-
-                    <div className="flex gap-6 text-xs text-gray-400">
-                        <a href="https://github.com/JayanthVishnu/" target="_blank" rel="noopener noreferrer" className="hover:text-cyan-400 transition-colors duration-300">
-                            [GITHUB]
-                        </a>
-                        <a href="https://www.linkedin.com/in/jayanth-shree-vishnu-a80858259/" target="_blank" rel="noopener noreferrer" className="hover:text-cyan-400 transition-colors duration-300">
-                            [LINKEDIN]
-                        </a>
-                        <a href="mailto:jayanthvishnu56@gmail.com" className="hover:text-cyan-400 transition-colors duration-300">
-                            [EMAIL]
-                        </a>
-                    </div>
+        <footer className="border-t border-slate-800 py-10 px-6">
+            <div className="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div>
+                    <p className="text-sm font-semibold text-white" style={{ fontFamily: 'Sora, sans-serif' }}>
+                        Jayanth Shree Vishnu
+                    </p>
+                    <p className="text-xs text-slate-500 mt-0.5">Software Development Engineer · Bengaluru, IN</p>
                 </div>
-
-                <div className="mt-8 pt-6 border-t border-cyan-500/5 text-center text-gray-600 text-[10px] tracking-wider">
-                    <p>&copy; {currentYear} Jayanth Shree Vishnu. SYSTEM DIAGNOSTICS DEPLOYMENT REGISTERED.</p>
+                <div className="flex items-center gap-5">
+                    <a href="https://github.com/JayanthVishnu/" target="_blank" rel="noopener noreferrer"
+                        className="text-xs text-slate-500 hover:text-slate-300 transition-colors">GitHub</a>
+                    <a href="https://www.linkedin.com/in/jayanth-shree-vishnu-a80858259/" target="_blank" rel="noopener noreferrer"
+                        className="text-xs text-slate-500 hover:text-slate-300 transition-colors">LinkedIn</a>
+                    <a href="mailto:jayanthvishnu56@gmail.com"
+                        className="text-xs text-slate-500 hover:text-slate-300 transition-colors">Email</a>
                 </div>
+                <p className="text-xs text-slate-700">© {year} Jayanth Shree Vishnu</p>
             </div>
         </footer>
     );

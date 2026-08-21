@@ -24,146 +24,117 @@ import supabaseIcon from '../assets/icon-pack/supabase.svg';
 import springbootIcon from '../assets/icon-pack/springboot.svg';
 import sqlIcon from '../assets/icon-pack/sql.svg';
 
-const skillsData = [
+const groups = [
     {
-        category: "LANGUAGES & PARSERS",
-        description: "Core programming syntax & schema engines",
+        label: 'Languages',
         skills: [
-            { name: "JavaScript", icon: jsIcon },
-            { name: "Java", icon: javaIcon },
-            { name: "TypeScript", icon: typescriptIcon },
-            { name: "Python", icon: pythonIcon },
-            { name: "SQL", icon: sqlIcon },
-            { name: "Rust", icon: rustIcon }
+            { name: 'JavaScript', icon: jsIcon },
+            { name: 'TypeScript', icon: typescriptIcon },
+            { name: 'Java', icon: javaIcon },
+            { name: 'Rust', icon: rustIcon },
+            { name: 'Python', icon: pythonIcon },
+            { name: 'SQL', icon: sqlIcon },
         ]
     },
     {
-        category: "FRAMEWORKS & ENGINES",
-        description: "Application skeletons & state managers",
+        label: 'Frameworks & Runtime',
         skills: [
-            { name: "Node.js", icon: nodeIcon },
-            { name: "Express.js", icon: expressIcon },
-            { name: "React.js", icon: reactIcon },
-            { name: "Vue.js", icon: vueIcon },
-            { name: "Svelte", icon: svelteIcon },
-            { name: "Spring Boot", icon: springbootIcon },
+            { name: 'Node.js', icon: nodeIcon },
+            { name: 'Express.js', icon: expressIcon },
+            { name: 'Spring Boot', icon: springbootIcon },
+            { name: 'React', icon: reactIcon },
+            { name: 'Vue.js', icon: vueIcon },
+            { name: 'Svelte', icon: svelteIcon },
         ]
     },
     {
-        category: "DB, PROTOCOLS & DEVOPS",
-        description: "Storage architectures, messaging & infrastructure",
+        label: 'Databases & Infrastructure',
         skills: [
-            { name: "MongoDB", icon: mongoIcon },
-            { name: "PostgreSQL", icon: postgresIcon },
-            { name: "Redis", icon: redisIcon },
-            { name: "Docker", icon: dockerIcon },
-            { name: "Git", icon: gitIcon },
-            { name: "Postman", icon: postmanIcon },
-            { name: "Jest", icon: jestIcon },
-            { name: "Linux", icon: linuxIcon }
+            { name: 'MongoDB', icon: mongoIcon },
+            { name: 'PostgreSQL', icon: postgresIcon },
+            { name: 'Supabase', icon: supabaseIcon },
+            { name: 'Redis', icon: redisIcon },
+            { name: 'Docker', icon: dockerIcon },
+            { name: 'Git', icon: gitIcon },
+            { name: 'Linux', icon: linuxIcon },
+            { name: 'Jest', icon: jestIcon },
         ]
-    }
+    },
 ];
+
+const alsoUsed = ['WebSockets', 'MQTT', 'WAMP', 'TCP/IP', 'REST APIs', 'RFID', 'QR', 'Tauri 2', 'PocketBase', 'NSSM', 'Inno Setup', 'Kafka', 'RabbitMQ'];
 
 const Skills = () => {
     const ref = useRef(null);
-    const isInView = useInView(ref, { once: true, margin: "-100px" });
-
-    const handleMouseMove = (e) => {
-        const card = e.currentTarget;
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        card.style.setProperty('--mouse-x', `${x}px`);
-        card.style.setProperty('--mouse-y', `${y}px`);
-    };
-
-    const containerVariants = {
-        hidden: { opacity: 0 },
-        visible: {
-            opacity: 1,
-            transition: {
-                staggerChildren: 0.1
-            }
-        }
-    };
-
-    const itemVariants = {
-        hidden: { opacity: 0, scale: 0.9, y: 10 },
-        visible: {
-            opacity: 1,
-            scale: 1,
-            y: 0,
-            transition: { duration: 0.4 }
-        }
-    };
+    const isInView = useInView(ref, { once: true, margin: '-80px' });
 
     return (
-        <section id="skills" className="py-32 px-6 bg-transparent">
-            <div className="max-w-6xl mx-auto">
+        <section id="skills" className="py-28 px-6">
+            <div className="max-w-5xl mx-auto" ref={ref}>
+                {/* Header */}
                 <motion.div
-                    ref={ref}
-                    initial={{ opacity: 0, y: 40 }}
+                    initial={{ opacity: 0, y: 20 }}
                     animate={isInView ? { opacity: 1, y: 0 } : {}}
-                    transition={{ duration: 0.6 }}
-                    className="text-center mb-16"
+                    transition={{ duration: 0.5 }}
+                    className="mb-14"
                 >
-                    <h2 className="text-3xl md:text-5xl font-black text-white uppercase font-serif tracking-wide mb-4">
-                        [skills<span className="text-cyan-400">_matrix</span>]
+                    <span className="section-label">Technical skills</span>
+                    <h2 className="text-3xl md:text-4xl font-bold text-white mt-2">
+                        Technologies I work with
                     </h2>
-                    <div className="h-1 w-20 bg-cyan-400/50 mx-auto shadow-[0_0_10px_rgba(0,229,255,0.5)] mb-4" />
-                    <p className="text-lg text-gray-400 max-w-xl mx-auto font-light font-mono">
-                        // Diagnostic checklist of technologies deployed in production environments.
-                    </p>
                 </motion.div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    {skillsData.map((category, categoryIndex) => (
+                {/* Skill groups */}
+                <div className="space-y-10">
+                    {groups.map((group, gi) => (
                         <motion.div
-                            key={category.category}
-                            initial="hidden"
-                            animate={isInView ? "visible" : "hidden"}
-                            variants={containerVariants}
-                            transition={{ delay: categoryIndex * 0.15 }}
-                            onMouseMove={handleMouseMove}
-                            className="cyber-card rounded-2xl p-8 border border-cyan-500/15 flex flex-col justify-between"
+                            key={group.label}
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={isInView ? { opacity: 1, y: 0 } : {}}
+                            transition={{ duration: 0.5, delay: gi * 0.12 }}
                         >
-                            <div>
-                                <h3 className="text-lg font-black mb-1 text-white font-mono border-b border-cyan-500/10 pb-3 tracking-widest text-cyan-400">
-                                    {category.category}
-                                </h3>
-                                <p className="text-xs text-gray-500 font-mono italic mb-8">
-                                    {category.description}
-                                </p>
-
-                                <div className="grid grid-cols-3 gap-y-8 gap-x-4">
-                                    {category.skills.map((skill, skillIndex) => (
-                                        <motion.div
-                                            key={skillIndex}
-                                            variants={itemVariants}
-                                            className="flex flex-col items-center gap-2.5 group relative z-10"
-                                        >
-                                            <div className="w-12 h-12 flex items-center justify-center rounded-xl bg-cyan-500/5 group-hover:bg-cyan-500/20 transition-all duration-300 p-2.5 border border-cyan-500/10 group-hover:border-cyan-400/50 shadow-md group-hover:shadow-[0_0_15px_rgba(0,229,255,0.3)]">
-                                                <img
-                                                    src={skill.icon}
-                                                    alt={skill.name}
-                                                    className="w-full h-full object-contain opacity-70 group-hover:opacity-100 transition-opacity"
-                                                />
-                                            </div>
-                                            <span className="text-[10px] font-bold text-gray-400 font-mono group-hover:text-cyan-300 transition-colors text-center truncate w-full">
+                            <h3 className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-4">
+                                {group.label}
+                            </h3>
+                            <div className="flex flex-wrap gap-3">
+                                {group.skills.map((skill) => (
+                                    <div
+                                        key={skill.name}
+                                        className="flex items-center gap-2.5 px-4 py-2.5 rounded-xl glass-card border border-slate-700/40 hover:border-indigo-500/40 transition-all cursor-default group"
+                                    >
+                                        <div className="card-content flex items-center gap-2.5">
+                                            <img
+                                                src={skill.icon}
+                                                alt={skill.name}
+                                                className="w-5 h-5 object-contain opacity-80 group-hover:opacity-100 transition-opacity"
+                                            />
+                                            <span className="text-sm font-medium text-slate-300 group-hover:text-slate-100 transition-colors">
                                                 {skill.name}
                                             </span>
-                                        </motion.div>
-                                    ))}
-                                </div>
-                            </div>
-
-                            <div className="mt-8 font-mono text-[9px] text-gray-600 border-t border-cyan-500/5 pt-4">
-                                STATUS: CALIBRATED // ACTIVE
+                                        </div>
+                                    </div>
+                                ))}
                             </div>
                         </motion.div>
                     ))}
                 </div>
+
+                {/* Also used */}
+                <motion.div
+                    initial={{ opacity: 0, y: 16 }}
+                    animate={isInView ? { opacity: 1, y: 0 } : {}}
+                    transition={{ duration: 0.5, delay: 0.45 }}
+                    className="mt-10 pt-8 border-t border-slate-800"
+                >
+                    <h3 className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-4">
+                        Also used — protocols, tools & exploratory
+                    </h3>
+                    <div className="flex flex-wrap gap-2">
+                        {alsoUsed.map((item) => (
+                            <span key={item} className="tag-chip">{item}</span>
+                        ))}
+                    </div>
+                </motion.div>
             </div>
         </section>
     );

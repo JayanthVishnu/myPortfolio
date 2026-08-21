@@ -1,211 +1,210 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
+const workItems = [
+    {
+        id: 'panasonic-jhajjar',
+        client: 'Panasonic Jhajjar',
+        tag: 'Real-time dashboard',
+        tags: ['WebSockets', 'MongoDB', 'Node.js'],
+        metric: '< 500ms load',
+        metricNote: 'was 3–5s',
+        summary: 'Replaced 5-second API polling with WebSockets backed by MongoDB change streams. Set up MongoDB replica sets with automatic failover.',
+        points: [
+            'Plant dashboard was polling an API every 5 seconds and still felt laggy. Swapped it for WebSockets + MongoDB change streams — page load went from 3–5s to under 500ms.',
+            'Set up MongoDB replica sets with automatic failover so a single node dropping out doesn\'t take the dashboard down mid-shift.',
+        ],
+    },
+    {
+        id: 'hmsi',
+        client: 'HMSI',
+        tag: 'Traceability system',
+        tags: ['Node.js', 'PocketBase', 'Supabase'],
+        metric: '−75% data errors',
+        metricNote: 'vs manual process',
+        summary: 'Built a traceability application from zero to replace manual, error-prone stage tracking across the assembly line.',
+        points: [
+            'Built their traceability app from zero — before this, production-stage tracking was manual and error-prone. Automated metadata capture at each stage cut data-entry mistakes and made audits noticeably faster.',
+            'Set up login with PocketBase and Supabase so onboarding new operators didn\'t require IT tickets every time.',
+        ],
+    },
+    {
+        id: 'panasonic-iic',
+        client: 'Panasonic IIC',
+        tag: 'WMS backend',
+        tags: ['MQTT', 'REST APIs', 'Cron'],
+        metric: '99.5% sync reliability',
+        metricNote: 'MQTT inter-system',
+        summary: 'Reworked REST APIs and built an MQTT sync layer for the warehouse management system.',
+        points: [
+            'Reworked the REST APIs behind their warehouse management system — response times and stability both improved significantly after the rewrite.',
+            'Built an MQTT-based sync layer so distributed nodes could reliably pass stock/arbitration data between each other, plus cron jobs to keep everything in sync overnight.',
+        ],
+    },
+    {
+        id: 'smt-driver',
+        client: 'Uno Minda · Ikio · Minda Khed',
+        tag: 'SMT driver microservice',
+        tags: ['Rust', 'WebSockets', 'WAMP', 'XML/CSV'],
+        metric: '10+ concurrent streams',
+        metricNote: 'Rust async processor',
+        summary: 'Config-driven CSV parser for SMT machines and a Rust service for concurrent file processing.',
+        points: [
+            'Every SMT machine (LMM, SPI, AOI, FCR) exports its own CSV format. Built a driver service that reads machine metadata and parses each format dynamically — onboarding a new machine is a config change, not a code change.',
+            'Wrote a WebSocket listener for PanaCIM\'s XML output and a Rust service (SMT-FileProcess) that moves and archives CSVs from 10+ machines simultaneously.',
+        ],
+    },
+    {
+        id: 'denso',
+        client: 'DENSO',
+        tag: 'Traceability & shop-floor inventory',
+        tags: ['Tauri 2', 'Svelte 5', 'Node.js', 'RFID', 'QR'],
+        metric: '6 production stations',
+        metricNote: 'replaced spreadsheets',
+        summary: 'Full desktop traceability app with RFID/QR integration across six production stations, packaged as a self-deployable Windows installer.',
+        points: [
+            'Built a desktop app (Tauri 2 + Svelte 5) covering six production stations, OP6 consumable tracking, and a live monitoring dashboard — replaced spreadsheet-based tracking.',
+            'Node.js/Express backend ties together RFID readers, QR scanners, and an external ETB API into one traceability pipeline.',
+            'Handled edge cases that matter on a real line: duplicate scans, wrong scan order, depleted stock, multi-part and multi-lot QR labels.',
+            'Packaged as a Windows installer with services managed via NSSM — client\'s team can deploy without needing us on a call.',
+        ],
+    },
+    {
+        id: 'foxconn',
+        client: 'Foxconn',
+        tag: 'PanaCIM integration',
+        tags: ['TCP', 'XML', 'MSSQL', 'MongoDB'],
+        metric: 'Dual-source ingestion',
+        metricNote: 'TCP + MSSQL → unified API',
+        summary: 'TCP listener converting PanaCIM XML output into MongoDB defect records, plus an MSSQL watcher for machines that bypass TCP.',
+        points: [
+            'Wrote a TCP listener that takes PanaCIM\'s raw XML output for a panel and its components, and turns it into queryable defect records in MongoDB.',
+            'Some machines only write to MSSQL, so added a watcher for new rows there too — both paths feed the same database, single API regardless of source.',
+        ],
+    },
+];
+
 const Experience = () => {
-    const [selectedLog, setSelectedLog] = useState(0);
-
-    const experiences = [
-        {
-            company: "Cymbeline Innovation Pvt Ltd",
-            role: "Software Developer Engineer – 1",
-            period: "Mar 2025 – Present",
-            location: "Bengaluru, Karnataka (On-site)",
-            description: "Designing and delivering distributed, high-performance backend systems, real-time data pipelines, and microservices in production environments. Taking end-to-end ownership of scalable services aligned with enterprise technology standards.",
-            projects: [
-                {
-                    id: "LOG_001",
-                    title: "Panasonic Jhajjar – Dashboard Optimization",
-                    role: "Lead Performance Engineer",
-                    metrics: { latency: "< 500ms (90% reduction)", uptime: "99.2%", tech: "WebSockets, MongoDB Replica Sets" },
-                    highlights: [
-                        "Replaced 5-second API polling with WebSockets + MongoDB Change Streams, eliminating dashboard latency.",
-                        "Reduced dashboard load time from 3–5s to under 500ms (~90% improvement), directly accelerating operator response speed on the production floor.",
-                        "Configured MongoDB replica sets with automated failover, increasing system uptime to 99.2% and ensuring high availability."
-                    ]
-                },
-                {
-                    id: "LOG_002",
-                    title: "HMSI Traceability System – Full-Stack",
-                    role: "Full-Stack Developer",
-                    metrics: { manual_errors: "-75% reduction", audit_speed: "+40% efficiency", tech: "Supabase, PocketBase, Node.js" },
-                    highlights: [
-                        "Engineered a Traceability Application from scratch, automating tracking and eliminating manual processes across the assembly line.",
-                        "Reduced manual data entry errors by ~75% and improved audit efficiency by ~40% through automated metadata capture.",
-                        "Built unified authentication using PocketBase & Supabase, reducing login issues by ~90% and improving onboarding speed."
-                    ]
-                },
-                {
-                    id: "LOG_003",
-                    title: "Panasonic IIC – WMS Backend & Sync",
-                    role: "Backend Architect",
-                    metrics: { api_response: "+40% speed", stability: "+70% reliability", tech: "MQTT, REST, Cron Scheduler" },
-                    highlights: [
-                        "Optimized backend REST APIs handling warehouse management workflows, improving response time by ~40% and stability by ~70%.",
-                        "Executed MQTT-based Arbitration Sync with message forwarding, achieving 99.5% inter-system communication reliability.",
-                        "Added cron-based scheduled sync jobs ensuring consistent cross-system data propagation and eliminating stale-data."
-                    ]
-                },
-                {
-                    id: "LOG_004",
-                    title: "SMT Driver Microservice – SMT Factories",
-                    role: "Systems Engineer (Rust/Node)",
-                    metrics: { throughput: "10+ concurrent streams", parser: "Dynamic metadata-driven", tech: "Rust, WAMP, WebSockets, XML" },
-                    highlights: [
-                        "Architected a configurable CSV driver microservice using machine metadata to dynamically parse schemas, eliminating hardcoded parsers.",
-                        "Built a WebSocket listener consuming PanaCIM XML data, using class-based parsing for multiple message types and WAMP forwarding.",
-                        "Constructed SMT-FileProcess in Rust – a high-throughput file management service using async queues for 10+ concurrent streams."
-                    ]
-                },
-                {
-                    id: "LOG_005",
-                    title: "Foxconn – Backend API Development",
-                    role: "Backend API Engineer",
-                    metrics: { design: "Scalable REST contracts", code_quality: "Enterprise standard", tech: "REST APIs, OpenAPI" },
-                    highlights: [
-                        "Planned and delivered backend REST APIs supporting Foxconn operational workflows, ensuring scalable, well-structured API contracts."
-                    ]
-                }
-            ]
-        }
-    ];
-
-    const handleMouseMove = (e) => {
-        const card = e.currentTarget;
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        card.style.setProperty('--mouse-x', `${x}px`);
-        card.style.setProperty('--mouse-y', `${y}px`);
-    };
-
-    const exp = experiences[0]; // Cymbeline
+    const [selected, setSelected] = useState('panasonic-jhajjar');
+    const activeItem = workItems.find((w) => w.id === selected);
 
     return (
-        <section id="experience" className="py-32 px-6 bg-transparent">
-            <div className="max-w-6xl mx-auto">
+        <section id="experience" className="py-28 px-6">
+            <div className="max-w-5xl mx-auto">
+                {/* Header */}
                 <motion.div
-                    initial={{ opacity: 0, y: 40 }}
+                    initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: "-100px" }}
-                    transition={{ duration: 0.6 }}
-                    className="text-center mb-16"
+                    viewport={{ once: true, margin: '-80px' }}
+                    transition={{ duration: 0.5 }}
+                    className="mb-14"
                 >
-                    <h2 className="text-3xl md:text-5xl font-black text-white uppercase font-serif tracking-wide mb-4">
-                        [system<span className="text-cyan-400">_logs</span>]
+                    <span className="section-label">Experience</span>
+                    <h2 className="text-3xl md:text-4xl font-bold text-white mt-2">
+                        Professional work
                     </h2>
-                    <div className="h-1 w-20 bg-cyan-400/50 mx-auto shadow-[0_0_10px_rgba(0,229,255,0.5)] mb-4" />
-                    <p className="text-lg text-gray-400 max-w-xl mx-auto font-light font-mono">
-                        // Decrypted professional registry at Cymbeline Innovation. Click on logs to view telemetry.
-                    </p>
                 </motion.div>
 
-                {/* Sub-header of Cymbeline */}
-                <div className="mb-10 p-6 rounded-xl bg-cyan-500/5 border border-cyan-500/10 flex flex-col md:flex-row md:items-center justify-between gap-4 font-mono text-sm">
-                    <div>
-                        <div className="text-lg font-bold text-white uppercase">{exp.role}</div>
-                        <div className="text-cyan-400 font-semibold">{exp.company}</div>
-                        <div className="text-gray-500 text-xs mt-1">{exp.location}</div>
+                {/* Company banner */}
+                <motion.div
+                    initial={{ opacity: 0, y: 16 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.5, delay: 0.1 }}
+                    className="mb-8 p-5 rounded-2xl glass-card border border-indigo-500/20"
+                >
+                    <div className="card-content flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                        <div>
+                            <div className="text-base font-semibold text-white">Software Development Engineer I</div>
+                            <div className="text-sm text-indigo-300 font-medium mt-0.5">Cymbeline Innovation Pvt Ltd</div>
+                            <div className="text-xs text-slate-500 mt-1">Bengaluru, Karnataka · On-site</div>
+                        </div>
+                        <span className="self-start sm:self-center px-3 py-1.5 rounded-lg bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-xs font-medium whitespace-nowrap">
+                            Mar 2025 – Present
+                        </span>
                     </div>
-                    <span className="self-start md:self-center text-cyan-400 font-bold px-3 py-1.5 rounded-lg bg-cyan-500/10 border border-cyan-500/25">
-                        {exp.period}
-                    </span>
-                </div>
+                </motion.div>
 
-                {/* Log Dashboard */}
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-                    {/* Left: Log Registry Selector (5 cols) */}
-                    <div className="lg:col-span-5 space-y-4">
-                        <span className="text-xs font-mono text-gray-500 block px-1">[REGISTRY_DIRECTORY_FILES]</span>
-                        
-                        {exp.projects.map((proj, idx) => (
+                {/* Two-panel layout */}
+                <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 items-start">
+                    {/* Left: Project list */}
+                    <motion.div
+                        initial={{ opacity: 0, x: -20 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.5, delay: 0.15 }}
+                        className="lg:col-span-2 space-y-2"
+                    >
+                        {workItems.map((item) => (
                             <button
-                                key={proj.id}
-                                onClick={() => setSelectedLog(idx)}
-                                className={`w-full text-left p-4 rounded-xl font-mono text-xs border transition-all duration-300 flex items-center justify-between group ${
-                                    selectedLog === idx 
-                                    ? 'bg-cyan-500/10 border-cyan-400 text-cyan-400 shadow-[0_0_15px_rgba(0,229,255,0.1)]' 
-                                    : 'bg-black/45 border-cyan-500/10 hover:border-cyan-500/30 text-gray-400 hover:text-gray-200'
+                                key={item.id}
+                                onClick={() => setSelected(item.id)}
+                                className={`w-full text-left p-4 rounded-xl border transition-all duration-200 ${
+                                    selected === item.id
+                                        ? 'bg-indigo-500/10 border-indigo-500/35 text-white'
+                                        : 'bg-white/3 border-slate-800 text-slate-400 hover:text-slate-200 hover:border-slate-700 hover:bg-white/5'
                                 }`}
                             >
-                                <div className="flex items-center gap-3">
-                                    <span className={`w-1.5 h-1.5 rounded-full ${selectedLog === idx ? 'bg-cyan-400 animate-pulse' : 'bg-gray-600'}`} />
+                                <div className="flex items-start gap-3">
+                                    <div className={`w-2 h-2 rounded-full mt-1.5 flex-shrink-0 transition-colors ${
+                                        selected === item.id ? 'bg-indigo-400' : 'bg-slate-700'
+                                    }`} />
                                     <div>
-                                        <span className="text-[10px] text-gray-500 block">{proj.id}</span>
-                                        <span className="font-bold tracking-wide">{proj.title.split(' – ')[0]}</span>
+                                        <div className="text-sm font-semibold leading-tight">{item.client}</div>
+                                        <div className={`text-xs mt-0.5 ${selected === item.id ? 'text-indigo-300' : 'text-slate-600'}`}>
+                                            {item.tag}
+                                        </div>
                                     </div>
                                 </div>
-                                <span className={`text-[10px] px-2 py-0.5 rounded border transition-colors ${
-                                    selectedLog === idx ? 'border-cyan-400/50' : 'border-gray-800'
-                                }`}>
-                                    OPEN
-                                </span>
                             </button>
                         ))}
-                    </div>
+                    </motion.div>
 
-                    {/* Right: Telemetry Screen (7 cols) */}
-                    <div className="lg:col-span-7">
-                        <span className="text-xs font-mono text-gray-500 block px-1 mb-1">
-                            [TELEMETRY_READER: {exp.projects[selectedLog].id}]
-                        </span>
-                        
-                        <div 
-                            onMouseMove={handleMouseMove}
-                            className="cyber-card p-8 rounded-2xl border border-cyan-500/15 min-h-[350px] flex flex-col justify-between cyber-corners"
-                        >
-                            <AnimatePresence mode="wait">
-                                <motion.div
-                                    key={selectedLog}
-                                    initial={{ opacity: 0, y: 15 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    exit={{ opacity: 0, y: -15 }}
-                                    transition={{ duration: 0.3 }}
-                                    className="space-y-6"
-                                >
-                                    {/* Header info */}
-                                    <div className="border-b border-cyan-500/10 pb-4 space-y-2">
-                                        <div className="flex items-center justify-between">
-                                            <span className="text-xs font-mono text-emerald-400 uppercase tracking-widest font-bold flex items-center gap-1.5">
-                                                <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-ping" />
-                                                LOG_DECRYPTED: SUCCESS
-                                            </span>
-                                            <span className="text-xs font-mono text-gray-500">{exp.projects[selectedLog].role}</span>
+                    {/* Right: Detail panel */}
+                    <div className="lg:col-span-3">
+                        <AnimatePresence mode="wait">
+                            <motion.div
+                                key={selected}
+                                initial={{ opacity: 0, y: 12 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: -8 }}
+                                transition={{ duration: 0.25 }}
+                                className="glass-card p-7"
+                            >
+                                <div className="card-content space-y-5">
+                                    {/* Header */}
+                                    <div>
+                                        <div className="flex items-start justify-between gap-4 mb-2">
+                                            <h3 className="text-lg font-bold text-white leading-tight">
+                                                {activeItem.client}
+                                            </h3>
+                                            <div className="text-right flex-shrink-0">
+                                                <div className="text-base font-bold text-indigo-300">{activeItem.metric}</div>
+                                                <div className="text-xs text-slate-500">{activeItem.metricNote}</div>
+                                            </div>
                                         </div>
-                                        <h3 className="text-xl font-bold text-white font-mono tracking-wide">
-                                            {exp.projects[selectedLog].title}
-                                        </h3>
+                                        <p className="text-sm text-slate-400 leading-relaxed">{activeItem.summary}</p>
                                     </div>
 
-                                    {/* Metrics parameters */}
-                                    <div className="bg-cyan-500/5 border border-cyan-500/10 rounded-lg p-4 font-mono text-xs grid grid-cols-1 sm:grid-cols-2 gap-3 text-gray-400">
-                                        {Object.entries(exp.projects[selectedLog].metrics).map(([key, val]) => (
-                                            <div key={key}>
-                                                <span className="text-cyan-400 font-bold uppercase block">{"> " + key.replace('_', ' ')}</span>
-                                                <span className="text-gray-200">{val}</span>
-                                            </div>
+                                    {/* Tags */}
+                                    <div className="flex flex-wrap gap-1.5">
+                                        {activeItem.tags.map((t) => (
+                                            <span key={t} className="tag-chip">{t}</span>
                                         ))}
                                     </div>
 
-                                    {/* Highlights list */}
-                                    <div className="space-y-3">
-                                        <span className="text-[10px] font-mono text-gray-500 block uppercase">Log Entries:</span>
-                                        <ul className="space-y-3">
-                                            {exp.projects[selectedLog].highlights.map((h, i) => (
-                                                <li key={i} className="flex items-start gap-3 text-sm font-light text-gray-300 leading-relaxed">
-                                                    <span className="text-cyan-400 font-mono font-bold mt-0.5">=&gt;</span>
-                                                    <span>{h}</span>
-                                                </li>
-                                            ))}
-                                        </ul>
-                                    </div>
-                                </motion.div>
-                            </AnimatePresence>
-
-                            <div className="mt-8 pt-4 border-t border-cyan-500/10 font-mono text-[9px] text-gray-600 flex justify-between">
-                                <span>SESSION_LOG: SECURE_LINK</span>
-                                <span>Cymbeline SDE Core Register</span>
-                            </div>
-                        </div>
+                                    {/* Points */}
+                                    <ul className="space-y-3 pt-1 border-t border-slate-800">
+                                        {activeItem.points.map((p, i) => (
+                                            <li key={i} className="flex items-start gap-3 text-sm text-slate-300 leading-relaxed">
+                                                <span className="mt-2 w-1.5 h-1.5 rounded-full bg-indigo-400/70 flex-shrink-0" />
+                                                {p}
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            </motion.div>
+                        </AnimatePresence>
                     </div>
                 </div>
             </div>
