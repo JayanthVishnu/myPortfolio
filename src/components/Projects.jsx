@@ -10,7 +10,7 @@ import weatherReactImg from '../assets/projects/weather-react.png';
 const featured = [
     {
         title: 'QRLayout',
-        status: 'Open source',
+        status: 'Open source · collab',
         description: 'A drag-and-drop QR layout designer for teams that need to place QR codes on labels or packaging without hand-coding positions each time.',
         tags: ['Open Source', 'Drag & Drop', 'QR Codes'],
         link: 'https://github.com/JayanthVishnu',
@@ -20,8 +20,8 @@ const featured = [
     },
     {
         title: 'EnvDrift',
-        status: 'Open source',
-        description: 'CLI tool that scans a codebase for environment variables actually in use and flags any that are missing from your .env — built after one too many "works on my machine" bugs.',
+        status: 'Open source · collab',
+        description: 'CLI tool that scans a codebase for environment variables actually in use and flags any that are missing from your .env — built after one too many “works on my machine” bugs.',
         tags: ['CLI', 'Open Source', 'Node.js', 'Developer Tool'],
         link: 'https://github.com/JayanthVishnu',
         linkLabel: 'GitHub ↗',

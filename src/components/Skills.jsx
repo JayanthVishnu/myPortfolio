@@ -26,43 +26,47 @@ import sqlIcon from '../assets/icon-pack/sql.svg';
 
 const groups = [
     {
-        label: 'Languages',
+        label: 'Frontend',
         skills: [
-            { name: 'JavaScript', icon: jsIcon },
-            { name: 'TypeScript', icon: typescriptIcon },
-            { name: 'Java', icon: javaIcon },
-            { name: 'Rust', icon: rustIcon },
-            { name: 'Python', icon: pythonIcon },
-            { name: 'SQL', icon: sqlIcon },
-        ]
-    },
-    {
-        label: 'Frameworks & Runtime',
-        skills: [
-            { name: 'Node.js', icon: nodeIcon },
-            { name: 'Express.js', icon: expressIcon },
-            { name: 'Spring Boot', icon: springbootIcon },
             { name: 'React', icon: reactIcon },
             { name: 'Vue.js', icon: vueIcon },
             { name: 'Svelte', icon: svelteIcon },
         ]
     },
     {
-        label: 'Databases & Infrastructure',
+        label: 'Backend & Languages',
+        skills: [
+            { name: 'Node.js', icon: nodeIcon },
+            { name: 'Express.js', icon: expressIcon },
+            { name: 'Java', icon: javaIcon },
+            { name: 'Spring Boot', icon: springbootIcon },
+            { name: 'Rust', icon: rustIcon },
+            { name: 'Python', icon: pythonIcon },
+            { name: 'JavaScript', icon: jsIcon },
+            { name: 'TypeScript', icon: typescriptIcon },
+        ]
+    },
+    {
+        label: 'Databases',
         skills: [
             { name: 'MongoDB', icon: mongoIcon },
             { name: 'PostgreSQL', icon: postgresIcon },
             { name: 'Supabase', icon: supabaseIcon },
             { name: 'Redis', icon: redisIcon },
+            { name: 'SQL', icon: sqlIcon },
+        ]
+    },
+    {
+        label: 'DevOps & Infra',
+        skills: [
             { name: 'Docker', icon: dockerIcon },
-            { name: 'Git', icon: gitIcon },
             { name: 'Linux', icon: linuxIcon },
-            { name: 'Jest', icon: jestIcon },
+            { name: 'Git', icon: gitIcon },
         ]
     },
 ];
 
-const alsoUsed = ['WebSockets', 'MQTT', 'WAMP', 'TCP/IP', 'REST APIs', 'RFID', 'QR', 'Tauri 2', 'PocketBase', 'NSSM', 'Inno Setup', 'Kafka', 'RabbitMQ'];
+const alsoUsed = ['WebSockets', 'MQTT', 'WAMP', 'TCP/IP', 'REST APIs', 'XML/CSV parsing', 'RFID', 'QR', 'Tauri 2', 'PocketBase', 'NSSM', 'Inno Setup', 'cron', 'MSSQL', 'MySQL', 'Kafka', 'RabbitMQ'];
 
 const Skills = () => {
     const ref = useRef(null);

@@ -88,10 +88,11 @@ const Hero = () => {
                         transition={{ duration: 0.6, delay: 0.3 }}
                         className="text-slate-400 text-base leading-relaxed max-w-2xl"
                     >
-                        Backend engineer with a year of shipping production systems for manufacturing clients —
-                        real-time dashboards, traceability apps, and machine-integration services on actual factory
-                        floors. I own features end-to-end: from the client conversation to the data model to keeping
-                        the system up at 2 AM. Primarily Node.js, Java, and Rust with MongoDB.
+                        Full-stack developer who also owns deployment and infrastructure — not just "write the code
+                        and hand it off." A year of shipping production systems for manufacturing clients: real-time
+                        dashboards, traceability apps, and desktop tools that run on actual factory floors. Frontend
+                        is React, Vue, Svelte, and Tauri; backend is mostly Node.js and Java, with Rust where
+                        performance mattered, and MongoDB as the usual database of choice.
                     </motion.p>
 
                     {/* CTA Buttons */}

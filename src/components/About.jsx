@@ -45,21 +45,23 @@ const About = () => {
                         className="lg:col-span-3 space-y-5"
                     >
                         <p className="text-slate-300 leading-relaxed text-[0.97rem]">
-                            I'm a backend-focused Software Development Engineer at{' '}
-                            <span className="text-indigo-300 font-medium">Cymbeline Innovation</span>, where I've spent
-                            the past year building production systems for manufacturing clients — real-time plant dashboards,
-                            traceability platforms, warehouse management backends, and machine-integration services.
+                            I'm a full-stack developer at{' '}
+                            <span className="text-indigo-300 font-medium">Cymbeline Innovation</span>{' '}
+                            who also owns deployment and infrastructure — not just "write the code and hand it off."
+                            For the past year I've been shipping production systems for manufacturing clients: real-time
+                            plant dashboards, traceability platforms, warehouse management backends, and desktop tools.
                         </p>
                         <p className="text-slate-400 leading-relaxed text-[0.97rem]">
-                            These aren't demo projects. They run on actual factory floors at companies like Panasonic,
-                            HMSI, DENSO, and Foxconn. I own features end-to-end: talking to the client, designing the
-                            data model, writing the backend, and making sure it doesn't fall over at 2 AM.
+                            These run on actual factory floors at companies like Panasonic, HMSI, DENSO, and Foxconn.
+                            I build the UI, write the backend, set up the database/replication, and package and deploy
+                            the thing myself — Docker on Linux for backend services, Windows installers with
+                            NSSM-managed services for desktop apps.
                         </p>
                         <p className="text-slate-400 leading-relaxed text-[0.97rem]">
-                            My primary stack is <span className="text-slate-200 font-medium">Node.js, Java, and Rust</span>,
-                            with <span className="text-slate-200 font-medium">MongoDB</span> as the usual database of choice.
-                            I've also built a full desktop application (Tauri 2 + Svelte 5) for shop-floor inventory tracking,
-                            complete with RFID/QR hardware integration and a self-deployable Windows installer.
+                            Frontend is <span className="text-slate-200 font-medium">React, Vue, Svelte, and Tauri</span>;
+                            backend is mostly <span className="text-slate-200 font-medium">Node.js and Java</span>, with
+                            <span className="text-slate-200 font-medium"> Rust</span> where performance mattered, and
+                            <span className="text-slate-200 font-medium"> MongoDB</span> as the usual database of choice.
                         </p>
 
                         {/* Quick facts */}
