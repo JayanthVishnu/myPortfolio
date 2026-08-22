@@ -72,7 +72,7 @@ const Contact = () => {
                         Let's talk
                     </h2>
                     <p className="text-slate-400 mt-3 max-w-lg text-sm leading-relaxed">
-                        I'm open to SDE roles — particularly backend-heavy positions. Feel free to reach out via email or the form below.
+                        I'm open to SDE roles — full-stack, systems, or infrastructure. Feel free to reach out via email or the form below.
                     </p>
                 </motion.div>
 

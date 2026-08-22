@@ -10,7 +10,7 @@ const About = () => {
         { icon: '⚡', title: 'Real-time systems', desc: 'WebSocket + MongoDB Change Streams, sub-500ms dashboards on factory floors' },
         { icon: '🦀', title: 'Rust for performance', desc: 'High-throughput async file processors handling 10+ concurrent machine streams' },
         { icon: '🖥', title: 'Desktop apps', desc: 'Tauri 2 + Svelte 5 desktop app for DENSO — RFID, QR, packaged as Windows installer' },
-        { icon: '🏭', title: 'End-to-end ownership', desc: 'From client spec to data model to backend to keeping it stable in production' },
+        { icon: '🏭', title: 'End-to-end ownership', desc: 'From client spec to UI to backend to deployment — keeping it stable in production' },
     ];
 
     const fadeUp = {
@@ -31,7 +31,7 @@ const About = () => {
                 >
                     <span className="section-label">About me</span>
                     <h2 className="text-3xl md:text-4xl font-bold text-white mt-2">
-                        Shipping backend systems<br className="hidden sm:block" /> that actually run in production
+                        Shipping full-stack systems<br className="hidden sm:block" /> that actually run in production
                     </h2>
                 </motion.div>
 
